@@ -36,7 +36,11 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
-  # spec.extensions    = ['ext/k_builder_watch/extconf.rb']
+  # spec.extensions    = ['ext/k_builder/watch/extconf.rb']
 
+  spec.add_dependency 'filewatcher', '~> 0.0'
+  spec.add_dependency 'k_builder', '~> 0.0'
+  spec.add_dependency 'k_builder-package_json', '~> 0.0'
+  spec.add_dependency 'k_builder-webpack5', '~> 0.0'
   # spec.add_dependency 'tty-box',         '~> 0.5.0'
 end
