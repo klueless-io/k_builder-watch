@@ -25,16 +25,12 @@ module KBuilder
         puts "Directory: #{directory}"
         # puts "Watch File: #{watch_file}"
 
-        Filewatcher.new(directory).watch do |filename, event|
-          if (event == :updated) && filename # .casecmp(watch_file).zero?
-            # puts "\n" * 70
-            # $stdout.clear_screen
-
-            process_updated_file(filename)
+        Filewatcher.new(directory).watch do |changes|
+          changes.each do |filename, event|
+            puts "File #{event}: #{filename}"
+            
+            process_updated_file(filename) if (event == :updated)
           end
-
-          puts "File deleted: #{filename}" if event == :delete
-          puts "Added file: #{filename}" if event == :new
         end
       end
 
