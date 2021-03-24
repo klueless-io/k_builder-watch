@@ -23,7 +23,7 @@ module KBuilder
 
       def start
         clear_screen
-        puts 'Watching for file changes'
+        puts "KBuilder-Watch: v#{KBuilder::Watch::VERSION} is watching for file changes"
         puts "Directory: #{directory}"
         # puts "Watch File: #{watch_file}"
 
@@ -50,11 +50,11 @@ module KBuilder
         puts e.backtrace.select { |ex| ex.start_with?(filename) }.join("\n")
       end
       # rubocop:enable Lint/RescueException
-    end
 
-    def clear_screen
-      puts "\n" * 70
-      $stdout.clear_screen
+      def clear_screen
+        puts "\n" * 70
+        $stdout.clear_screen
+      end
     end
   end
 end
