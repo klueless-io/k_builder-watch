@@ -2,7 +2,7 @@
 
 # Application Specific Ruby Class Template
 class Main
-  def initialize()
+  def initialize
     # Do something
   end
 end
