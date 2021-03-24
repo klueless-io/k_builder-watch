@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../lib'))
+
+require 'k_builder/watch'
+
+# directory = '/Users/davidcruwys/dev/c#/P04DomainMonopolyV1'
+
+cli = KBuilder::Watch::Cli.new
+cli.execute
+
+unless cli.debug
+  watcher = KBuilder::Watch::Watcher.new(cli.watch_path)
+  watcher.start
+end
