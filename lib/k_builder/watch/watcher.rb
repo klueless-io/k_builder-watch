@@ -8,8 +8,9 @@ require 'io/console'
 # require 'handlebars/helpers/configuration'
 
 module KBuilder
+  # Watch supports any watch and execute processes for builders
   module Watch
-    # Watch fo
+    # Watcher does the actual file watching and run the processor
     class Watcher
       attr_accessor :directory
 
@@ -21,6 +22,7 @@ module KBuilder
       # watch_file = File.join(directory, 'DOMAIN_INSTRUCTIONS.MD')
 
       def start
+        clear_screen
         puts 'Watching for file changes'
         puts "Directory: #{directory}"
         # puts "Watch File: #{watch_file}"
@@ -34,17 +36,25 @@ module KBuilder
         end
       end
 
+      # rubocop:disable Lint/RescueException
       def process_updated_file(filename)
-        puts "\n" * 70
-        $stdout.clear_screen
+        $LOAD_PATH.unshift(File.join(Dir.pwd, '.builders'))
+        # Can I set __FILE__ during class_eval
+
         puts "File updated: #{filename}"
 
         content = File.read(filename)
-        Object.class_eval content
-      rescue StandardError => e
+        Object.class_eval(content, __FILE__, __LINE__)
+      rescue Exception => e
         puts e.message
-        puts e.backtrace.join("\n")
+        puts e.backtrace.select { |ex| ex.start_with?(filename) }.join("\n")
       end
+      # rubocop:enable Lint/RescueException
+    end
+
+    def clear_screen
+      puts "\n" * 70
+      $stdout.clear_screen
     end
   end
 end
