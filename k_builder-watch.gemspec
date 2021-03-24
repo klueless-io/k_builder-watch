@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   # spec.extensions    = ['ext/k_builder/watch/extconf.rb']
 
-  spec.add_dependency 'filewatcher', '~> 0.0'
+  spec.add_dependency 'filewatcher', '~> 2.0.0.beta3'
   spec.add_dependency 'k_builder', '~> 0.0'
   spec.add_dependency 'k_builder-package_json', '~> 0.0'
   spec.add_dependency 'k_builder-webpack5', '~> 0.0'

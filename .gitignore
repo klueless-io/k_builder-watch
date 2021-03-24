@@ -23,6 +23,7 @@ k_builder_watch.yml
 /doc/
 /pkg/
 /spec/reports/
+/spec/samples-output/
 /tmp/
 !/tmp/.keep
 *.bundle
