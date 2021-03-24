@@ -28,8 +28,8 @@ module KBuilder
         Filewatcher.new(directory).watch do |changes|
           changes.each do |filename, event|
             puts "File #{event}: #{filename}"
-            
-            process_updated_file(filename) if (event == :updated)
+
+            process_updated_file(filename) if event == :updated
           end
         end
       end
