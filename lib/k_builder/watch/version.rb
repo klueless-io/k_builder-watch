@@ -2,6 +2,6 @@
 
 module KBuilder
   module Watch
-    VERSION = '0.0.8'
+    VERSION = '0.0.9'
   end
 end
