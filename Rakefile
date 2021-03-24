@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# source: https://stephenagrice.medium.com/making-a-command-line-ruby-gem-write-build-and-push-aec24c6c49eb
+
 GEM_NAME = 'k_builder-watch'
 
 require 'bundler/gem_tasks'
@@ -18,7 +20,8 @@ Rake::ExtensionTask.new(GEM_NAME) do |ext|
 end
 
 desc 'Publish the gem to RubyGems.org'
-task publish: :build do
+task :publish do
+  system 'gem build'
   system "gem push #{GEM_NAME}-#{KBuilder::Watch::VERSION}.gem"
 end
 
@@ -28,21 +31,3 @@ task :clean do
 end
 
 task default: %i[clobber compile spec]
-
-# task :default => :build
-
-# task :build do
-#   system "gem build " + GEM_NAME + ".gemspec"
-# end
-
-# task :install => :build do
-#   system "gem install " + GEM_NAME + "-" + KBuilder::Watch::VERSION + ".gem"
-# end
-
-# task :publish => :build do
-#   system 'gem push ' + GEM_NAME + "-" + GEM_VERSION + ".gem"
-# end
-
-# task :clean do
-#   system "rm *.gem"
-# end
