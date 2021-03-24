@@ -33,8 +33,9 @@ Gem::Specification.new do |spec|
       f.match(%r{^(test|spec|features)/})
     end
   end
-  spec.bindir        = 'exe'
+  spec.bindir        = 'bin'
   
+  puts spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
   # spec.extensions    = ['ext/k_builder/watch/extconf.rb']
