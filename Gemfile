@@ -23,3 +23,13 @@ group :development, :test do
   gem 'rubocop-rake', require: false
   gem 'rubocop-rspec', require: false
 end
+
+# If local dependency
+# if true
+#   group :development, :test do
+#     # /Users/davidcruwys/dev/kgems/k_builder/lib/k_builder
+#     gem 'k_builder', path: '../k_builder'
+#     gem 'k_builder-package_json', path: '../k_builder-package_json'
+#     gem 'k_builder-webpack5', path: '../k_builder-webpack5'
+#   end
+# end

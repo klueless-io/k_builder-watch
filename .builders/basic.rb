@@ -1,14 +1,7 @@
-# require '.builders/_initialize.rb'
+require '_initialize.rb'
 
-$LOAD_PATH.unshift(File.join(Dir.pwd, '.builders'))
-load 'x.rb'
-puts 'fucit'
-# load 'x.rb'
-# puts JSON.pretty_generate(KBuilder.configuration.to_h)
-
-# builder = KBuilder::BaseBuilder.init
-
-# builder
+builder = KBuilder::BaseBuilder
+  .init
 #   .add_file('main.rb', template_file: 'class.rb', name: 'main')
 #   .add_file('person.rb',
 #     template_file: 'model.rb',
@@ -32,3 +25,5 @@ puts 'fucit'
 # puts File.exist?(file)
 # system("code #{file}")
 # puts 'basic'
+
+puts 'DONE!'

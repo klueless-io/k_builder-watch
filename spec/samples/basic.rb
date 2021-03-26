@@ -3,7 +3,11 @@
 
 Handlebars::Helpers.configure do |config|
   config_file = File.join(Gem.loaded_specs['handlebars-helpers'].full_gem_path, '.handlebars_helpers.json')
+  string_config_file = File.join(Gem.loaded_specs['handlebars-helpers'].full_gem_path, '.handlebars_string_formatters.json')
+  puts string_formatter_config_file
+
   config.helper_config_file = config_file
+  config.string_formatter_config_file = string_config_file
 end
 
 KBuilder.reset

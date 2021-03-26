@@ -38,16 +38,24 @@ module KBuilder
 
       # rubocop:disable Lint/RescueException
       def process_updated_file(filename)
-        $LOAD_PATH.unshift(File.join(Dir.pwd, '.builders'))
-        # Can I set __FILE__ during class_eval
+        clear_screen
+
+        dirname = File.dirname(filename)
+
+        $LOAD_PATH.unshift(dirname) unless $LOAD_PATH.find { |path| path.start_with?(dirname) }
 
         puts "File updated: #{filename}"
 
         content = File.read(filename)
-        Object.class_eval(content, __FILE__, __LINE__)
+        Object.class_eval(content, filename)
       rescue Exception => e
         puts e.message
-        puts e.backtrace.select { |ex| ex.start_with?(filename) }.join("\n")
+        puts e.backtrace
+              .select { |ex| ex.start_with?(filename) }
+              .map { |m| m.delete_suffix(":in `process_updated_file'" )}
+              .join("\n")
+        # puts '-' * 70
+        # puts e.backtrace.join("\n")
       end
       # rubocop:enable Lint/RescueException
 
