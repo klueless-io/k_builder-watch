@@ -11,7 +11,5 @@ require 'k_builder/watch'
 cli = KBuilder::Watch::Cli.new
 cli.execute
 
-unless cli.debug
-  watcher = KBuilder::Watch::Watcher.new(cli.watch_path)
-  watcher.start
-end
+watcher = KBuilder::Watch::Watcher.new(cli.watch_path)
+watcher.start
