@@ -39,10 +39,7 @@ module KBuilder
       # rubocop:disable Lint/RescueException
       def process_updated_file(filename)
         clear_screen
-
-        dirname = File.dirname(filename)
-
-        $LOAD_PATH.unshift(dirname) unless $LOAD_PATH.find { |path| path.start_with?(dirname) }
+        update_load_path(filename)
 
         puts "File updated: #{filename}"
 
@@ -52,12 +49,21 @@ module KBuilder
         puts e.message
         puts e.backtrace
               .select { |ex| ex.start_with?(filename) }
-              .map { |m| m.delete_suffix(":in `process_updated_file'" )}
+              .map { |m| m.delete_suffix(":in `process_updated_file'") }
               .join("\n")
         # puts '-' * 70
         # puts e.backtrace.join("\n")
       end
       # rubocop:enable Lint/RescueException
+
+      private
+
+      def update_load_path(filename)
+        dirname = File.dirname(filename)
+
+        # This needs to be in detailed logging
+        $LOAD_PATH.unshift(dirname) unless $LOAD_PATH.find { |path| path.start_with?(dirname) }
+      end
 
       def clear_screen
         puts "\n" * 70

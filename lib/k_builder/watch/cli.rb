@@ -14,16 +14,27 @@ module KBuilder
       attr_accessor :debug
       attr_accessor :base_path
       attr_accessor :path
+      attr_accessor :path_relative
+      attr_accessor :new_path
+      attr_accessor :new_path_relative
+      attr_accessor :new
+      attr_accessor :app_path
       attr_accessor :watch_path
       attr_accessor :help
 
       def initialize
+        # puts "Watch: #{KBuilder::Watch::VERSION}"
         # @repetitions = 1
         # @name = nil
         @debug = false
         @watch_path = nil
         @base_path = Dir.pwd
+        @path_relative = nil # '.'
         @path = nil
+        @app_path = nil
+        @new_path = nil
+        @new_path_relative = nil
+        @new = nil
 
         parse_arguments
         post_process_arguments
@@ -31,10 +42,10 @@ module KBuilder
 
       def options
         # ['--repeat'  , '-r', GetoptLong::REQUIRED_ARGUMENT],
-        # ['--name'    , '-n', GetoptLong::OPTIONAL_ARGUMENT]
         GetoptLong.new(
-          ['--help' , '-h', GetoptLong::NO_ARGUMENT],
-          ['--debug' , GetoptLong::NO_ARGUMENT]
+          ['--help'     , '-h', GetoptLong::NO_ARGUMENT],
+          ['--debug'    , GetoptLong::NO_ARGUMENT],
+          ['--new'      , '-n', GetoptLong::OPTIONAL_ARGUMENT]
         )
       end
 
@@ -52,15 +63,23 @@ module KBuilder
       end
 
       def parse_final_argument
-        if ARGV.length != 1
-          puts 'Missing dir argument (try --help)'
-          exit 0
-        end
+        # if ARGV.length != 1
+        #   puts 'Missing dir argument (try --help)'
+        #   exit 0
+        # end
 
-        @path = ARGV.shift
+        @path_relative = if ARGV.length == 1
+                           ARGV.shift
+                         else
+                           '.'
+                         end
+
+        return unless @path.nil?
+
+        @path = File.join(base_path, path_relative)
       end
 
-      def parse_option(opt, _arg)
+      def parse_option(opt, arg)
         case opt
         when '--help'
           @help = true
@@ -68,14 +87,20 @@ module KBuilder
           @debug = true
           # when '--repeat'
           #   @repetitions = arg.to_i
-          # when '--name' # sample
-          #   @name = (arg == '' ? 'John' : arg)
+        when '--new'
+          # Maybe better to call @new, @app_name
+          @new = arg
+          @app_path = File.join(base_path, arg)
+          @new_path_relative = arg == '' ? '.builders' : File.join(arg.to_s, '.builders')
+          @new_path = File.join(base_path, @new_path_relative)
+          @path = @new_path_relative
         end
       end
 
       def execute
         display_help      if help
         display_debug     if debug
+        new_builder       unless @new.nil?
 
         # Dir.chdir(dir)
         # for i in (1..repetitions)
@@ -87,29 +112,41 @@ module KBuilder
         # end
       end
 
+      def new_builder
+        setup_file = File.join(new_path, 'setup.rb')
+        config_file = File.join(new_path, 'config', '_.rb')
+
+        FileUtils.mkdir_p(File.dirname(config_file))
+        File.write(setup_file, "require 'config/_'")                                unless File.exist?(setup_file)
+        File.write(config_file, "puts '_'\n\n#require 'config/_initialize'")        unless File.exist?(config_file)
+
+        system("code #{File.join(app_path, '.')}")
+      end
+
       def display_help
-        puts 'This is the help menu.'
-        puts '  -h This help file'
-        puts '  --debug debug options'
-
-        # hello [OPTION] ... DIR
-
-        # -h, --help:
-        #   show help
-
-        # --repeat x, -n x:
-        #   repeat x times
-
-        # --name [name]:
-        #   greet user by name, if name not supplied default is John
-
-        # DIR: The directory in which to issue the greeting.
+        puts 'HELP: k_watcher [OPTION] ... DIR'
+        puts ''
+        puts '  -h, --help:                                   - show help'
+        puts '  --debug                                       - display debug options'
+        puts '  -n, --new [folder_name]                       - create a new .builders folder with setup file, optionally create it under the [FolderName]'
+        puts ''
+        puts ' DIR:                                           - The directory to watch, will default to current directory "."'
+        puts ''
+        puts 'examples'
+        puts ''
+        puts 'Get Help                                        - k_watcher -h'
+        puts 'Debug                                           - k_watcher --debug'
+        puts 'New builder project   (./.builders)             - k_watcher -n'
+        puts 'New builder project   (./HelloWorld/.builders)  - k_watcher -n HelloWorld'
+        puts 'Watch current folder  (.)                       - k_watcher'
+        puts 'Watch the subfolder   (.builders)               - k_watcher .builders'
 
         exit
       end
 
       def display_debug
         puts JSON.pretty_generate(to_h)
+        exit
       end
 
       def to_h
@@ -117,14 +154,20 @@ module KBuilder
         # name: name,
         {
           debug: debug,
+          app_path: app_path,
           base_path: base_path,
+          path_relative: path_relative,
           watch_path: watch_path,
-          path: path
+          new_path: new_path,
+          new_path_relative: new_path_relative,
+          new: new
         }
       end
 
       private
 
+      # Refactor to use KUtil.file.expand_path(path, base_path)
+      # Need tests
       def set_watch_path
         @watch_path = if path.start_with?('~')
                         File.expand_path(path)
