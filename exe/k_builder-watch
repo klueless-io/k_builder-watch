@@ -5,7 +5,7 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../lib'))
 
 require 'k_builder/watch'
-
+puts 'yyyyyyyyyyy'
 # directory = '/Users/davidcruwys/dev/c#/P04DomainMonopolyV1'
 
 cli = KBuilder::Watch::Cli.new
