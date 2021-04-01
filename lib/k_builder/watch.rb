@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 require 'k_doc'
+require 'k_util'
+require 'k_log'
+
+require 'k_builder/dotnet'
+require 'k_builder/package_json'
+require 'k_builder/webpack5'
+
 require 'k_builder/watch/version'
 require 'k_builder/watch/cli'
 require 'k_builder/watch/watcher'
