@@ -10,18 +10,16 @@ module KBuilder
   # Watch supports any watch and execute processes for builders
   module Watch
     # Watcher does the actual file watching and run the processor
-    class Watcher
+    class ActionWatcher < KBuilder::Watch::BaseAction
       attr_accessor :directory
 
-      def initialize(directory)
-        @directory = directory
+      def run
+        @directory = options.watch_path
+        start
       end
 
-      # May need some sort of pattern filters
-      # watch_file = File.join(directory, 'DOMAIN_INSTRUCTIONS.MD')
-
       def start
-        clear_screen
+        # clear_screen
         puts "KBuilder-Watch: v#{KBuilder::Watch::VERSION} is watching for file changes"
         puts "Directory: #{directory}"
         # puts "Watch File: #{watch_file}"
