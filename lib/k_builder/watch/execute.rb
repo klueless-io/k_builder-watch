@@ -50,7 +50,7 @@ module KBuilder
           exit
         end
 
-        run_action(:new) if options.new?
+        run_action(:new_builder) if options.new?
         run_action(:watcher)
       end
     end
