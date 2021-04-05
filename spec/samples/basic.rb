@@ -4,7 +4,7 @@
 Handlebars::Helpers.configure do |config|
   config_file = File.join(Gem.loaded_specs['handlebars-helpers'].full_gem_path, '.handlebars_helpers.json')
   string_config_file = File.join(Gem.loaded_specs['handlebars-helpers'].full_gem_path, '.handlebars_string_formatters.json')
-  puts string_formatter_config_file
+  # puts string_formatter_config_file
 
   config.helper_config_file = config_file
   config.string_formatter_config_file = string_config_file
@@ -22,7 +22,7 @@ KBuilder.configure do |config|
   config.template_folders.add(:app    , File.join(template_root , '.app_template'))
 end
 
-puts JSON.pretty_generate(KBuilder.configuration.to_h)
+# puts JSON.pretty_generate(KBuilder.configuration.to_h)
 
 builder = KBuilder::BaseBuilder.init
 
@@ -43,8 +43,8 @@ builder
 
 
 
-file = builder.target_file('main.rb')
-puts file
-puts File.exist?(file)
-system("code #{file}")
-puts 'basic'
+# file = builder.target_file('main.rb')
+# puts file
+# puts File.exist?(file)
+# system("code #{file}")
+# puts 'basic'
