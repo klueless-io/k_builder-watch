@@ -2,14 +2,21 @@
 
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '../lib'))
+require 'pry'
 
+lib_path = File.expand_path(File.join(File.dirname(__FILE__), '../lib'))
+gem_path = File.expand_path(File.join(File.dirname(__FILE__), '../Gemfile'))
+
+$LOAD_PATH.unshift(lib_path)
+
+ENV['BUNDLE_GEMFILE'] = gem_path
+
+require 'bundler/setup'
 require 'k_builder/watch'
-puts 'yyyyyyyyyyy'
-# directory = '/Users/davidcruwys/dev/c#/P04DomainMonopolyV1'
 
-cli = KBuilder::Watch::Cli.new
-cli.execute
+options = KBuilder::Watch::Cli.parse_options
 
-watcher = KBuilder::Watch::Watcher.new(cli.watch_path)
-watcher.start
+KBuilder::Watch::Execute.run(options)
+
+# watcher = KBuilder::Watch::Watcher.new(cli.watch_path)
+# watcher.start

@@ -39,10 +39,13 @@ Gem::Specification.new do |spec|
   # spec.extensions    = ['ext/k_builder/watch/extconf.rb']
 
   spec.add_dependency 'filewatcher', '~> 2.0.0.beta3'
-  spec.add_dependency 'k_builder', '~> 0.0'
-  spec.add_dependency 'k_builder-package_json', '~> 0.0'
-  spec.add_dependency 'k_builder-webpack5', '~> 0.0'
-  spec.add_dependency 'k_doc', '~> 0.0'
-  spec.add_dependency 'k_log', '~> 0.0'
-  spec.add_dependency 'k_util', '~> 0.0'
+
+  # spec.add_dependency 'handlebars-helpers', '~> 0.0'
+  # spec.add_dependency 'k_builder', '~> 0.0'
+  # spec.add_dependency 'k_builder-dotnet', '~> 0.0'
+  # spec.add_dependency 'k_builder-package_json', '~> 0.0'
+  # spec.add_dependency 'k_builder-webpack5', '~> 0.0'
+  # spec.add_dependency 'k_doc', '~> 0.0'
+  # spec.add_dependency 'k_log', '~> 0.0'
+  # spec.add_dependency 'k_util', '~> 0.0'
 end
