@@ -13,6 +13,8 @@ module KBuilder
     class ActionWatcher < KBuilder::Watch::BaseAction
       attr_accessor :directory
 
+      # TODO: Need to support folder exclusions so that I can place .templates, in with .builders
+
       def run
         @directory = options.watch_path
         start
