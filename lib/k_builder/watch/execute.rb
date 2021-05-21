@@ -50,7 +50,15 @@ module KBuilder
           exit
         end
 
-        run_action(:new_builder) if options.new?
+        if options.new?
+          run_action(:new_builder)
+
+          # Originally I allowed new to proceed straight into watcher, but it is problematic to mix
+          # builder creation in with builder watching, they are two different tasks that should be
+          # run separately
+          exit
+        end
+
         run_action(:watcher)
       end
     end

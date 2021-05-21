@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'pry'
 require 'k_builder'
 require 'json'
@@ -15,13 +14,7 @@ module KBuilder
       attr_accessor :opts
 
       def_delegators :opts, :base_path, :debug?, :help?, :new?
-      # :base_path,
-      # :watch_path_arg,
-      # :new_watch_path,
-      # :new_arg,
-      # :new_app_path,
-      # :watch_path
-
+      
       def initialize
         @opts = KBuilder::Watch::CliOptions.new
 

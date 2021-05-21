@@ -30,6 +30,7 @@ RSpec.describe KBuilder::Watch::Execute do
       ARGV.push(*args)
     end
 
+    # uncomment any functional test that you wish to run locally
     # context 'help' do
     #   let(:args) { ['--help'] }
 
@@ -48,11 +49,11 @@ RSpec.describe KBuilder::Watch::Execute do
     #   it { subject }
     # end
 
-    context 'watch' do
-      let(:args) { ['spec/samples/new_app/.builders'] }
+    # context 'watch' do
+    #   let(:args) { ['spec/samples/new_app/.builders'] }
 
-      fit { subject }
-    end
+    #   fit { subject }
+    # end
   end
 
   # describe '#run' do
