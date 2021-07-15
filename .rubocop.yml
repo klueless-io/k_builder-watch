@@ -6,6 +6,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - "_/**/*"
+    - "bin/**/*"
     - "spec/samples/**/*"
 
 Metrics/BlockLength:
