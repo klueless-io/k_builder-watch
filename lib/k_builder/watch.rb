@@ -6,6 +6,7 @@ require 'k_doc'
 require 'k_util'
 require 'k_log'
 
+require 'k_builder'
 require 'k_builder/dotnet'
 require 'k_builder/package_json'
 require 'k_builder/webpack5'

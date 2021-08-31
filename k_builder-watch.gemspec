@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   # spec.extensions    = ['ext/k_builder/watch/extconf.rb']
 
+  spec.add_dependency 'dry-struct', '~> 1'
   spec.add_dependency 'filewatcher', '~> 2.0.0.beta3'
 
   # spec.add_dependency 'handlebars-helpers', '~> 0.0'
