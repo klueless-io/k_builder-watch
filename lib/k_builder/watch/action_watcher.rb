@@ -26,11 +26,18 @@ module KBuilder
         puts "Directory: #{directory}"
         # puts "Watch File: #{watch_file}"
 
+        # { filename: '/Users/davidcruwys/dev/kgems/k_manager/spec/samples/.builder/a/b/c/d/e/bob.png'         , event: :created    },
+        # { filename: '/Users/davidcruwys/dev/kgems/k_manager/spec/samples/.builder/a/b/c/d/e/bob.rb'          , event: :created    },
+        # { filename: '/Users/davidcruwys/dev/kgems/k_manager/spec/samples/.builder/a/b/c/d/e/bob_builder.txt' , event: :updated    },
+        # { filename: '/Users/davidcruwys/dev/kgems/k_manager/spec/samples/.builder/a/b/c/d/e/kill_bill.txt'   , event: :deleted    },
+
         Filewatcher.new(directory).watch do |changes|
           changes.each do |filename, event|
             puts "File #{event}: #{filename}"
 
-            process_updated_file(filename) if event == :updated
+            # process_created_file(filename) if event == :created
+            process_updated_file(filename) if event == :updated # || event == :created
+            # process_deleted_file(filename) if event == :deleted
           end
         end
       end
