@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-
 require 'handlebars/helpers'
 
 require 'k_doc'
+require 'k_domain'
 require 'k_util'
 require 'k_log'
 
