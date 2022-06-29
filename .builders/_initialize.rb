@@ -7,7 +7,7 @@ KBuilder.reset
 templates_ruby  = '~/dev/kgems/k_dsl/_/.template/ruby-cmdlet'
 target_root     = '~/dev/kgems/k_builder-watch/'
 
-KBuilder.configure do |config|
+KConfig.configure do |config|
   config.target_folders.add(:app      , target_root)
 
   config.template_folders.add(:global , File.join(templates_ruby , '.global_template'))

@@ -15,14 +15,14 @@ KBuilder.reset
 template_root   = '/Users/davidcruwys/dev/kgems/k_builder/spec/usecases'
 target_root     = '/Users/davidcruwys/dev/kgems/k_builder-watch/spec/samples-output'
 
-KBuilder.configure do |config|
+KConfig.configure do |config|
   config.target_folders.add(:app      , target_root)
 
   config.template_folders.add(:global , File.join(template_root , '.global_template'))
   config.template_folders.add(:app    , File.join(template_root , '.app_template'))
 end
 
-# puts JSON.pretty_generate(KBuilder.configuration.to_h)
+# puts JSON.pretty_generate(KConfig.configuration.to_h)
 
 builder = KBuilder::BaseBuilder.init
 

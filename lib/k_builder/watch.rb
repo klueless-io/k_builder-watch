@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'handlebars/helpers'
 
 require 'k_doc'
@@ -28,7 +29,7 @@ module KBuilder
   end
 end
 
-if ENV['KLUE_DEBUG']&.to_s&.downcase == 'true'
+if ENV.fetch('KLUE_DEBUG', 'false').downcase == 'true'
   namespace = 'KBuilder::Watch::Version'
   file_path = $LOADED_FEATURES.find { |f| f.include?('k_builder/watch/version') }
   version   = KBuilder::Watch::VERSION.ljust(9)
