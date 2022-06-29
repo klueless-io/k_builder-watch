@@ -50,4 +50,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'k_domain', '~> 0.0'
   spec.add_dependency 'k_log', '~> 0.0'
   spec.add_dependency 'k_util', '~> 0.0'
+
+  # NOTE: CLI may be better of in a different GEM
+  spec.add_dependency 'dry-cli', '~> 0.0'
+  spec.metadata = {
+    'rubygems_mfa_required' => 'true'
+  }
 end
