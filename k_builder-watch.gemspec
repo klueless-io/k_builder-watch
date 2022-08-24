@@ -53,7 +53,4 @@ Gem::Specification.new do |spec|
 
   # NOTE: CLI may be better of in a different GEM
   spec.add_dependency 'dry-cli', '~> 0.0'
-  spec.metadata = {
-    'rubygems_mfa_required' => 'true'
-  }
 end
