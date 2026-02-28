@@ -37,11 +37,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
   # spec.extensions    = ['ext/k_builder/watch/extconf.rb']
+  spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.add_dependency 'dry-struct', '~> 1'
   spec.add_dependency 'filewatcher', '~> 2.0.0.beta5'
 
-  spec.add_dependency 'handlebars-helpers', '~> 0.0'
+  # spec.add_dependency 'handlebars-helpers', '~> 0.0'
   spec.add_dependency 'k_builder', '~> 0.0'
   spec.add_dependency 'k_builder-dotnet', '~> 0.0'
   spec.add_dependency 'k_builder-package_json', '~> 0.0'
@@ -53,5 +54,4 @@ Gem::Specification.new do |spec|
 
   # NOTE: CLI may be better of in a different GEM
   spec.add_dependency 'dry-cli', '~> 0.0'
-  spec.metadata['rubygems_mfa_required'] = 'true'
 end
